@@ -43,7 +43,27 @@ background: linear-gradient(135deg, var(--cream), var(--coffee));
 display:grid; place-items:center; font-size:18px; color:white;
 box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
-.nav-links{ display:flex; gap:14px; align-items:center; }
+.nav-links{ display:flex; gap:14px; align-items:center; position:relative; }
+.cart-icon{
+position:relative; cursor:pointer; font-size:20px; padding:8px; border-radius:999px;
+}
+.cart-icon:hover{ background:#f3e0ce; }
+.cart-count{
+position:absolute; top:-8px; right:-8px; background:var(--accent); color:white;
+border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center;
+font-size:12px; font-weight:700;
+}
+.cart-dropdown{
+position:absolute; top:100%; right:0; background:white; border:1px solid #f0e2d9;
+border-radius:8px; box-shadow:var(--shadow); width:300px; max-height:400px; overflow-y:auto;
+display:none; z-index:1001;
+}
+.cart-dropdown.active{ display:block; }
+.cart-item{
+display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #f0e2d9;
+}
+.cart-item:last-child{ border-bottom:none; }
+.cart-total{ padding:8px; font-weight:700; text-align:center; border-top:1px solid #f0e2d9; }
 nav a{
 padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px;
 color:#3b2a1b;
@@ -130,6 +150,12 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <a href="#about">О фотографе</a>
 <a href="#pricing">Прайс</a>
 <a href="#contacts">Контакты</a>
+<div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count">0</span></div>
+<div id="cart-dropdown" class="cart-dropdown">
+<div id="cart-items"></div>
+<div class="cart-total" id="cart-total">Итого: 0 руб</div>
+<button onclick="openBookingModal()" class="main-btn" style="width:100%; margin-top:8px;">Оформить заказ</button>
+</div>
 </nav>
 </div>
 </header>
@@ -188,32 +214,50 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div class="card">
 <img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Детская фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Детская фотосессия', 2500)" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="interier.jpg" alt="Уличная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Уличная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Уличная фотосессия', 2500)" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Свадебная фотосессия</h3>
+<div class="inline">
 <p class="price">5000 руб/час</p>
+<button onclick="addToCart('Свадебная фотосессия', 5000)" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Ночная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Ночная фотосессия', 2500)" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="portret photo.jpg" alt="Портретная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Портретная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Портретная фотосессия', 2500)" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="reportage.jpg" alt="Репортажная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Репортажная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Репортажная фотосессия', 2500)" class="btn-book">В корзину</button>
+</div>
 </div>
 </div>
 </section>
@@ -256,34 +300,36 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <script>
 // Корзина
 let cart = [];
-function addToCart(item) {
-    const existingItem = cart.find(cartItem => cartItem.name === item);
+function addToCart(name, price) {
+    const existingItem = cart.find(cartItem => cartItem.name === name);
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ name: item, quantity: 1 });
+        cart.push({ name: name, price: price, quantity: 1 });
     }
     updateCartDisplay();
 }
 function updateCartDisplay() {
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('cart-link').textContent = 'Корзина (' + totalQuantity + ')';
+    document.getElementById('cart-count').textContent = totalQuantity;
     const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
     if (cart.length > 0) {
-        cartItems.innerHTML = '<ul style="list-style:none; padding:0;">' +
-            cart.map((item, index) => `
-                <li style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; padding:8px; border:1px solid #f0e2d9; border-radius:8px;">
-                    <span>${item.name}</span>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <button onclick="decreaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="increaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">+</button>
-                    </div>
-                </li>
-            `).join('') +
-            '</ul>';
+        cartItems.innerHTML = cart.map((item, index) => `
+            <div class="cart-item">
+                <span>${item.name} (${item.price} руб)</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button onclick="decreaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="increaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">+</button>
+                </div>
+            </div>
+        `).join('');
+        const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        cartTotal.textContent = 'Итого: ' + totalPrice + ' руб';
     } else {
-        cartItems.innerHTML = 'Корзина пуста';
+        cartItems.innerHTML = '<div class="cart-item">Корзина пуста</div>';
+        cartTotal.textContent = 'Итого: 0 руб';
     }
 }
 function increaseQuantity(index) {
@@ -297,12 +343,9 @@ function decreaseQuantity(index) {
     }
     updateCartDisplay();
 }
-function openCartModal() {
-    updateCartDisplay();
-    document.getElementById('cart-modal').classList.add('active');
-}
-function closeCartModal() {
-    document.getElementById('cart-modal').classList.remove('active');
+function toggleCartDropdown() {
+    const dropdown = document.getElementById('cart-dropdown');
+    dropdown.classList.toggle('active');
 }
 function clearCart() {
     cart = [];
