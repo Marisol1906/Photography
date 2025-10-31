@@ -130,9 +130,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <a href="#about">О фотографе</a>
 <a href="#pricing">Прайс</a>
 <a href="#contacts">Контакты</a>
-<a href="#" onclick="openCartModal()" id="cart-link">Корзина (0)</a>
 </nav>
-<button class="main-btn" onclick="openBookingModal()">Записаться</button>
 </div>
 </header>
 <main>
@@ -190,50 +188,32 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div class="card">
 <img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Детская фотосессия</h3>
-<div class="inline">
 <p class="price">2500 руб/час</p>
-<button onclick="addToCart('Детская фотосессия')" class="btn-book">В корзину</button>
-</div>
 </div>
 <div class="card">
 <img src="interier.jpg" alt="Уличная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Уличная фотосессия</h3>
-<div class="inline">
 <p class="price">2500 руб/час</p>
-<button onclick="addToCart('Уличная фотосессия')" class="btn-book">В корзину</button>
-</div>
 </div>
 <div class="card">
 <img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Свадебная фотосессия</h3>
-<div class="inline">
 <p class="price">5000 руб/час</p>
-<button onclick="addToCart('Свадебная фотосессия')" class="btn-book">В корзину</button>
-</div>
 </div>
 <div class="card">
 <img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Ночная фотосессия</h3>
-<div class="inline">
 <p class="price">2500 руб/час</p>
-<button onclick="addToCart('Ночная фотосессия')" class="btn-book">В корзину</button>
-</div>
 </div>
 <div class="card">
 <img src="portret photo.jpg" alt="Портретная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Портретная фотосессия</h3>
-<div class="inline">
 <p class="price">2500 руб/час</p>
-<button onclick="addToCart('Портретная фотосессия')" class="btn-book">В корзину</button>
-</div>
 </div>
 <div class="card">
 <img src="reportage.jpg" alt="Репортажная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Репортажная фотосессия</h3>
-<div class="inline">
 <p class="price">2500 руб/час</p>
-<button onclick="addToCart('Репортажная фотосессия')" class="btn-book">В корзину</button>
-</div>
 </div>
 </div>
 </section>
@@ -269,14 +249,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 </form>
 </div>
 </div>
-<div id="cart-modal" class="modal">
-<div class="modal-content">
-<h3>Ваша корзина</h3>
-<div id="cart-items"></div>
-<button onclick="clearCart()" class="btn-book" style="margin-top:16px;">Очистить корзину</button>
-<button onclick="closeCartModal()" style="margin-top:16px; margin-left:8px; background:#ccc;">Закрыть</button>
-</div>
-</div>
+
 <div class="footer" aria-label="Подвал страницы">
 © 2025 Частный фотограф. Все права сохранены.
 </div>
