@@ -129,10 +129,10 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <a href="#hero">Главная</a>
 <a href="#about">О фотографе</a>
 <a href="#pricing">Прайс</a>
-<a href="#schedule">Расписание</a>
 <a href="#contacts">Контакты</a>
+<a href="#" onclick="openCartModal()" id="cart-link">Корзина (0)</a>
 </nav>
-<button class="main-btn" onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">Записаться</button>
+<button class="main-btn" onclick="openBookingModal()">Записаться</button>
 </div>
 </header>
 <main>
@@ -141,10 +141,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div>
 <h1>Профессиональная фотосессия под ваш стиль — вдохните жизнь в каждый кадр</h1>
 <p>Создаю персональные портреты, репортажи и события с вниманием к деталям. Ваши эмоции — моя работа.</p>
-<div class="inline" style="gap:14px;align-items:center">
-<button class="main-btn" onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">Забронировать время</button>
-<span class="subtle">Своя дата и час — просто выберите в расписании</span>
-</div>
+
 </div>
 <div class="hero-visual" aria-label="Изображение портфолио"></div>
 </div>
@@ -193,32 +190,50 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div class="card">
 <img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Детская фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Детская фотосессия')" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="interier.jpg" alt="Уличная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Уличная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Уличная фотосессия')" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Свадебная фотосессия</h3>
+<div class="inline">
 <p class="price">5000 руб/час</p>
+<button onclick="addToCart('Свадебная фотосессия')" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Ночная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Ночная фотосессия')" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="portret photo.jpg" alt="Портретная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Портретная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Портретная фотосессия')" class="btn-book">В корзину</button>
+</div>
 </div>
 <div class="card">
 <img src="reportage.jpg" alt="Репортажная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Репортажная фотосессия</h3>
+<div class="inline">
 <p class="price">2500 руб/час</p>
+<button onclick="addToCart('Репортажная фотосессия')" class="btn-book">В корзину</button>
+</div>
 </div>
 </div>
 </section>
@@ -236,13 +251,68 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 </div>
 </section>
 </main>
+<div id="booking-modal" class="modal">
+<div class="modal-content">
+<h3>Запись на фотосессию</h3>
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+<label class="label">ФИО</label>
+<input type="text" name="name" class="input" required>
+
+<label class="label">Номер телефона</label>
+<input type="tel" name="phone" class="input" required>
+
+<label class="label">Повод для записи</label>
+<textarea name="message" class="input" rows="4" required></textarea>
+
+<button type="submit" class="main-btn" style="margin-top:16px;">ОК</button>
+<button type="button" onclick="closeBookingModal()" style="margin-top:16px; margin-left:8px; background:#ccc;">Отмена</button>
+</form>
+</div>
+</div>
+<div id="cart-modal" class="modal">
+<div class="modal-content">
+<h3>Ваша корзина</h3>
+<div id="cart-items"></div>
+<button onclick="clearCart()" class="btn-book" style="margin-top:16px;">Очистить корзину</button>
+<button onclick="closeCartModal()" style="margin-top:16px; margin-left:8px; background:#ccc;">Закрыть</button>
+</div>
+</div>
 <div class="footer" aria-label="Подвал страницы">
 © 2025 Частный фотограф. Все права сохранены.
 </div>
 <script>
+// Корзина
+let cart = [];
+function addToCart(item) {
+    cart.push(item);
+    updateCartDisplay();
+}
+function updateCartDisplay() {
+    document.getElementById('cart-link').textContent = 'Корзина (' + cart.length + ')';
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = cart.length > 0 ? '<ul>' + cart.map(item => '<li>' + item + '</li>').join('') + '</ul>' : 'Корзина пуста';
+}
+function openCartModal() {
+    updateCartDisplay();
+    document.getElementById('cart-modal').classList.add('active');
+}
+function closeCartModal() {
+    document.getElementById('cart-modal').classList.remove('active');
+}
+function clearCart() {
+    cart = [];
+    updateCartDisplay();
+}
+
 // Простой скрипт для имитации поведения бронирования
 let activeDate = '';
 let activeTime = '';
+function openBookingModal(){
+document.getElementById('booking-modal').classList.add('active');
+}
+function closeBookingModal(){
+document.getElementById('booking-modal').classList.remove('active');
+}
 function openBooking(date, time){
 activeDate = date;
 activeTime = time;
