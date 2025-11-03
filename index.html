@@ -285,6 +285,125 @@ background:url('ja.jpg') center/cover no-repeat;
 <div class="hero-visual" aria-label="Изображение портфолио"></div>
 </div>
 </section>
+
+<!-- НОВЫЙ РАЗДЕЛ: ПОРТФОЛИО -->
+<section id="portfolio" class="section" aria-label="Портфолио работ">
+<div class="container">
+<h2>Портфолио работ</h2>
+<p style="margin-bottom: 16px; color: var(--dark);">Лучшие моменты, запечатленные в моих работах</p>
+
+<div style="display:flex; gap:12px; justify-content:center; margin-bottom:40px; flex-wrap:wrap;">
+<button data-filter="all" class="btn-book" style="background:var(--accent); color:white; border:none;">Все работы</button>
+<button data-filter="portrait" class="btn-book">Портреты</button>
+<button data-filter="wedding" class="btn-book">Свадьбы</button>
+<button data-filter="event" class="btn-book">Мероприятия</button>
+<button data-filter="children" class="btn-book">Детская</button>
+</div>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+<div class="card" data-category="portrait" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="portret photo.jpg" alt="Портретная съемка" style="width:100%; height:250px; object-fit:cover;">
+<div style="padding:16px;">
+<h3>Портретная съемка</h3>
+<p style="color:var(--muted); font-size:14px;">Профессиональный портрет в студии</p>
+</div>
+</div>
+
+<div class="card" data-category="wedding" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:250px; object-fit:cover;">
+<div style="padding:16px;">
+<h3>Свадебная фотосессия</h3>
+<p style="color:var(--muted); font-size:14px;">Самый важный день вашей жизни</p>
+</div>
+</div>
+
+<div class="card" data-category="children" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:250px; object-fit:cover;">
+<div style="padding:16px;">
+<h3>Детская фотосессия</h3>
+<p style="color:var(--muted); font-size:14px;">Моменты детства - бесценны</p>
+</div>
+</div>
+
+<div class="card" data-category="event" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="reportage.jpg" alt="Репортажная съемка" style="width:100%; height:250px; object-fit:cover;">
+<div style="padding:16px;">
+<h3>Репортажная съемка</h3>
+<p style="color:var(--muted); font-size:14px;">Живые эмоции и искренние моменты</p>
+</div>
+</div>
+
+<div class="card" data-category="portrait" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:250px; object-fit:cover;">
+<div style="padding:16px;">
+<h3>Ночная фотосессия</h3>
+<p style="color:var(--muted); font-size:14px;">Игра света и тени</p>
+</div>
+</div>
+
+<div class="card" data-category="event" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="interier.jpg" alt="Интерьерная съемка" style="width:100%; height:250px; object-fit:cover;">
+<div style="padding:16px;">
+<h3>Интерьерная съемка</h3>
+<p style="color:var(--muted); font-size:14px;">Красота пространства</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- НОВЫЙ РАЗДЕЛ: ОТЗЫВЫ -->
+<section id="testimonials" class="section" aria-label="Отзывы клиентов">
+<div class="container">
+<h2>Отзывы клиентов</h2>
+<p style="text-align:center; margin-bottom:40px; color:var(--muted);">Что говорят о моей работе</p>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:24px; margin-top:32px;">
+<div class="card" style="position:relative; padding:32px; border-left:4px solid var(--accent);">
+<div style="position:absolute; top:-15px; left:20px; font-size:48px; color:var(--accent); font-family:serif;">"</div>
+<blockquote style="font-style:italic; font-size:16px; line-height:1.6; margin:0 0 20px; color:var(--dark);">
+Потрясающая работа! Марина смогла передать всю атмосферу нашего праздника. Каждый кадр пропитан эмоциями! Спасибо за профессионализм и творческий подход.
+</blockquote>
+<div style="display:flex; align-items:center; gap:16px;">
+<div style="width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">А+С</div>
+<div>
+<div style="font-weight:600; color:var(--dark);">Анна и Сергей</div>
+<div style="font-size:14px; color:var(--muted);">Свадебная фотосессия</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="position:relative; padding:32px; border-left:4px solid var(--accent);">
+<div style="position:absolute; top:-15px; left:20px; font-size:48px; color:var(--accent); font-family:serif;">"</div>
+<blockquote style="font-style:italic; font-size:16px; line-height:1.6; margin:0 0 20px; color:var(--dark);">
+Марина - настоящий профессионал! Детскую фотосессию провела так, что ребенок не заметил, как прошла съемка. Фотографии получились живыми и естественными.
+</blockquote>
+<div style="display:flex; align-items:center; gap:16px;">
+<div style="width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">МП</div>
+<div>
+<div style="font-weight:600; color:var(--dark);">Мария Петрова</div>
+<div style="font-size:14px; color:var(--muted);">Детская фотосессия</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="position:relative; padding:32px; border-left:4px solid var(--accent);">
+<div style="position:absolute; top:-15px; left:20px; font-size:48px; color:var(--accent); font-family:serif;">"</div>
+<blockquote style="font-style:italic; font-size:16px; line-height:1.6; margin:0 0 20px; color:var(--dark);">
+Лучший фотограф в городе! Работает быстро, качественно, всегда на связи. Рекомендую всем, кто ценит профессионализм и индивидуальный подход.
+</blockquote>
+<div style="display:flex; align-items:center; gap:16px;">
+<div style="width:50px; height:50px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">ДК</div>
+<div>
+<div style="font-weight:600; color:var(--dark);">Дмитрий Козлов</div>
+<div style="font-size:14px; color:var(--muted);">Корпоративная съемка</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
 <section id="about" class="section" aria-label="Об фотографе">
 <div class="container section-portfolio">
 <div class="card" style="display:flex;flex-direction:column;justify-content:space-between">
@@ -671,6 +790,41 @@ window.addEventListener('scroll', function() {
     } else {
         backToTopButton.classList.remove('show');
     }
+});
+
+// Фильтрация портфолио
+function filterPortfolio(category) {
+    const items = document.querySelectorAll('[data-category]');
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    
+    // Обновить активную кнопку
+    filterButtons.forEach(btn => {
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--dark)';
+    });
+    
+    document.querySelector(`[data-filter="${category}"]`).style.background = 'var(--accent)';
+    document.querySelector(`[data-filter="${category}"]`).style.color = 'white';
+    
+    // Показать/скрыть элементы
+    items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Добавить обработчики для кнопок фильтрации
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            filterPortfolio(filter);
+        });
+    });
 });
 </script>
 </body>
