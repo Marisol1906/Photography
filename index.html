@@ -53,6 +53,9 @@ position:absolute; top:-8px; right:-8px; background:var(--accent); color:white;
 border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center;
 font-size:12px; font-weight:700;
 }
+.cart-count.hidden {
+display: none;
+}
 .cart-dropdown{
 position:absolute; top:100%; right:0; background:var(--card); border:1px solid #555;
 border-radius:8px; box-shadow:var(--shadow); width:300px; max-height:400px; overflow-y:auto;
@@ -150,7 +153,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <a href="#about">О фотографе</a>
 <a href="#pricing">Прайс</a>
 <a href="#contacts">Контакты</a>
-<div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count">0</span></div>
+<div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count hidden">0</span></div>
 <div id="cart-dropdown" class="cart-dropdown">
 <div id="cart-items"></div>
 <div class="cart-total" id="cart-total">Итого: 0 руб</div>
@@ -298,8 +301,23 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 © 2025 Частный фотограф. Все права сохранены.
 </div>
 <script>
-// Корзина
+// Корзина с улучшенной функциональностью
 let cart = [];
+
+// Сохранение корзины в localStorage
+function saveCart() {
+    localStorage.setItem('photography_cart', JSON.stringify(cart));
+}
+
+// Загрузка корзины из localStorage
+function loadCart() {
+    const savedCart = localStorage.getItem('photography_cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+    }
+}
+
+// Добавление товара в корзину
 function addToCart(name, price) {
     const existingItem = cart.find(cartItem => cartItem.name === name);
     if (existingItem) {
@@ -307,13 +325,28 @@ function addToCart(name, price) {
     } else {
         cart.push({ name: name, price: price, quantity: 1 });
     }
+    saveCart(); // Сохраняем корзину
     updateCartDisplay();
 }
+
+// Обновление отображения корзины
 function updateCartDisplay() {
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('cart-count').textContent = totalQuantity;
+    const cartCountElement = document.getElementById('cart-count');
+    
+    // Обновляем счетчик корзины
+    cartCountElement.textContent = totalQuantity;
+    
+    // Показываем/скрываем счетчик в зависимости от наличия товаров
+    if (totalQuantity > 0) {
+        cartCountElement.classList.remove('hidden');
+    } else {
+        cartCountElement.classList.add('hidden');
+    }
+    
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
+    
     if (cart.length > 0) {
         cartItems.innerHTML = cart.map((item, index) => `
             <div class="cart-item">
@@ -332,25 +365,42 @@ function updateCartDisplay() {
         cartTotal.textContent = 'Итого: 0 руб';
     }
 }
+
+// Увеличение количества товара
 function increaseQuantity(index) {
     cart[index].quantity += 1;
+    saveCart();
     updateCartDisplay();
 }
+
+// Уменьшение количества товара
 function decreaseQuantity(index) {
     cart[index].quantity -= 1;
     if (cart[index].quantity <= 0) {
         cart.splice(index, 1);
     }
+    saveCart();
     updateCartDisplay();
 }
+
+// Переключение видимости выпадающего меню корзины
 function toggleCartDropdown() {
     const dropdown = document.getElementById('cart-dropdown');
     dropdown.classList.toggle('active');
 }
+
+// Очистка корзины
 function clearCart() {
     cart = [];
+    saveCart();
     updateCartDisplay();
 }
+
+// Инициализация корзины при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    loadCart();
+    updateCartDisplay();
+});
 
 // Простой скрипт для имитации поведения бронирования
 let activeDate = '';
@@ -399,3 +449,6 @@ el.scrollIntoView({behavior:'smooth'});
 }
 });
 });
+</script>
+</body>
+</html>
