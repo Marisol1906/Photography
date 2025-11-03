@@ -97,10 +97,10 @@ display:flex; align-items:center; justify-content:space-between; padding:8px; bo
 display:flex; gap:8px; padding:8px; border-top:1px solid #555;
 }
 .btn-cancel{
-flex:1; padding:8px 12px; border:1px solid #666; background:#444; color:var(--dark);
+flex:1; padding:8px 12px; border:1px solid #666; background:#ffffff; color:var(--dark);
 border-radius:6px; cursor:pointer; font-size:13px; font-weight:600;
 }
-.btn-cancel:hover{ background:#555; }
+.btn-cancel:hover{ background:#f0f0f0; }
 nav a{
 padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px;
 color:#ffffff;
@@ -602,17 +602,54 @@ function removeFromCart(service) {
     }
 }
 
+function increaseQuantity(service) {
+    const item = cart.find(item => item.service === service);
+    if (item) {
+        item.quantity += 1;
+        cartTotal += item.price;
+        updateCartDisplay();
+        updateCartCount();
+    }
+}
+
+function decreaseQuantity(service) {
+    const itemIndex = cart.findIndex(item => item.service === service);
+    if (itemIndex !== -1) {
+        if (cart[itemIndex].quantity > 1) {
+            cart[itemIndex].quantity -= 1;
+            cartTotal -= cart[itemIndex].price;
+        } else {
+            cart.splice(itemIndex, 1);
+        }
+        updateCartDisplay();
+        updateCartCount();
+    }
+}
+
 function updateCartDisplay() {
     const cartItems = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
+    
+    // Пересчитать общую сумму
+    cartTotal = 0;
+    cart.forEach(item => {
+        cartTotal += item.price * item.quantity;
+    });
     
     if (cart.length === 0) {
         cartItems.innerHTML = '<p style="text-align:center; color:var(--muted); padding:20px;">Корзина пуста</p>';
     } else {
         cartItems.innerHTML = cart.map(item => `
             <div class="cart-item">
-                <span>${item.service} (${item.quantity} шт.)</span>
-                <span>${item.price * item.quantity} руб</span>
+                <div>
+                    <span style="font-size:13px; color:var(--dark);">${item.service}</span>
+                    <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+                        <button onclick="decreaseQuantity('${item.service}')" style="background:#444; color:white; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer; font-size:12px;">-</button>
+                        <span style="font-size:12px; font-weight:600;">${item.quantity} шт.</span>
+                        <button onclick="increaseQuantity('${item.service}')" style="background:var(--accent); color:white; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer; font-size:12px;">+</button>
+                    </div>
+                </div>
+                <span style="font-size:13px; font-weight:600;">${item.price * item.quantity} руб</span>
             </div>
         `).join('');
     }
