@@ -809,7 +809,10 @@ document.addEventListener('click', function(e) {
     const cartDropdown = document.getElementById('cart-dropdown');
     const cartIcon = document.querySelector('.cart-icon');
     
-    if (!cartIcon.contains(e.target) && !cartDropdown.contains(e.target)) {
+    // Не закрывать корзину, если клик был внутри корзины или на иконке корзины
+    const clickedInsideCart = cartDropdown.contains(e.target) || cartIcon.contains(e.target);
+    
+    if (!clickedInsideCart && cartDropdown.classList.contains('active')) {
         cartDropdown.classList.remove('active');
     }
 });
