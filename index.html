@@ -209,6 +209,41 @@ background:url('ja.jpg') center/cover no-repeat;
 .schedule-section {
     margin-top: 72px;
 }
+
+/* Кнопка "Вернуться наверх" */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.back-to-top:hover {
+    background: #d4856a;
+    transform: translateY(-2px);
+}
+
+.back-to-top.show {
+    display: flex;
+}
+
+.back-to-top span {
+    user-select: none;
+}
 </style>
 </head>
 <body>
@@ -376,6 +411,11 @@ background:url('ja.jpg') center/cover no-repeat;
 <footer class="footer">
 <p>&copy; 2025 Марина Алехнович. Все права защищены.</p>
 </footer>
+
+<!-- Кнопка "Вернуться наверх" -->
+<button id="backToTop" class="back-to-top" onclick="scrollToTop()">
+<span>↑</span>
+</button>
 
 <!-- Модальное окно для оформления заказа -->
 <div id="booking-modal" class="modal">
@@ -609,6 +649,24 @@ document.addEventListener('click', function(e) {
     
     if (!cartIcon.contains(e.target) && !cartDropdown.contains(e.target)) {
         cartDropdown.classList.remove('active');
+    }
+});
+
+// Функция для кнопки "Вернуться наверх"
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Показать/скрыть кнопку при прокрутке
+window.addEventListener('scroll', function() {
+    const backToTopButton = document.getElementById('backToTop');
+    if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+    } else {
+        backToTopButton.classList.remove('show');
     }
 });
 </script>
