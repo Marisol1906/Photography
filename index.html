@@ -1,24 +1,20 @@
-<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Профессиональный фотограф — лендинг</title>
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
 :root{
-  --primary: #FFB5A3;
-  --secondary: #4A90A4;
-  --accent: #F7C59F;
-  --dark: #2C3E50;
-  --light: #FFFFFF;
-  --muted: #6C757D;
-  --bg: linear-gradient(135deg, #f7efe4 0%, #f0e2d9 50%, #e8d8c1 100%);
-  --card: rgba(255,255,255,0.98);
-  --shadow: 0 8px 32px rgba(0,0,0,.15);
-  --hover-shadow: 0 12px 40px rgba(0,0,0,.2);
+--cream:#f7efe4;
+--coffee:#b78457;
+--dark:#ffffff;
+--accent:#e89b7a;
+--pink:#f5c6e6;
+--bg:#1a1a1a;
+--card:#2d2d2d;
+--muted:#cccccc;
+--ok:#4caf50;
+--shadow:0 8px 20px rgba(0,0,0,.3);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -27,16 +23,6 @@ margin:0;
 font-family: Arial, Helvetica, sans-serif;
 color:var(--dark);
 background:var(--bg);
-background-size: cover;
-background-position: center;
-background-attachment: fixed;
-}
-.section {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(2px);
-    margin: 20px 0;
-    padding: 72px 0;
-    border-radius: 12px;
 }
 a{color:inherit;text-decoration:none}
 header{
@@ -50,7 +36,7 @@ max-width:1100px; margin:0 auto;
 display:flex; align-items:center; justify-content:space-between;
 padding:14px 16px;
 }
-.brand{ display:flex; align-items:center; gap:12px; font-weight:700; color:#ffffff}
+.brand{ display:flex; align-items:center; gap:12px; font-weight:700; color:var(--dark)}
 .brand .logo{
 width:34px; height:34px; border-radius:8px;
 background: linear-gradient(135deg, var(--cream), var(--coffee));
@@ -60,59 +46,51 @@ box-shadow:0 2px 6px rgba(0,0,0,.15);
 .nav-links{ display:flex; gap:14px; align-items:center; position:relative; }
 .cart-icon{
 position:relative; cursor:pointer; font-size:20px; padding:8px; border-radius:999px;
-color:#ffffff;
 }
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-  align-items: center;
+.cart-icon:hover{ background:#f3e0ce; }
+.cart-count{
+position:absolute; top:-8px; right:-8px; background:var(--accent); color:white;
+border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center;
+font-size:12px; font-weight:700;
 }
-
-nav a {
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--dark);
-  text-decoration: none;
-  transition: all 0.3s ease;
-  position: relative;
+.cart-dropdown{
+position:absolute; top:100%; right:0; background:var(--card); border:1px solid #555;
+border-radius:8px; box-shadow:var(--shadow); width:300px; max-height:400px; overflow-y:auto;
+display:none; z-index:1001;
 }
-
-nav a:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,181,163,0.4);
+.cart-dropdown.active{ display:block; }
+.cart-item{
+display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #555;
 }
-
-/* Улучшенная hero-секция */
-.section {
-  padding: 100px 0;
-  position: relative;
+.cart-item:last-child{ border-bottom:none; }
+.cart-total{ padding:8px; font-weight:700; text-align:center; border-top:1px solid #555; }
+nav a{
+padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px;
+color:var(--dark);
 }
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+nav a:hover{ background:#333; color:var(--dark); }
+.main-btn{
+padding:12px 20px; border-radius:999px; border:0;
+background: linear-gradient(135deg, var(--coffee), #8b5a2b);
+color:white; font-weight:700; cursor:pointer;
+box-shadow:0 6px 16px rgba(139,90,43,.4);
 }
-
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 60px;
-  min-height: 80vh;
+.section{ padding:72px 0; }
+.container{ max-width:1100px; margin:0 auto; padding:0 16px; }
+.hero{
+display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:40px;
 }
-
-.hero-content {
-  animation: slideInLeft 0.8s ease-out;
+.hero h1{ font-size: clamp(28px, 5vw, 48px); line-height:1.04; color:var(--dark); margin:0 0 12px; }
+.hero p{ font-size:18px; color:var(--dark); margin:0 0 20px; }
+.hero-visual{
+height:320px; border-radius:18px; overflow:hidden; position:relative;
+background: linear-gradient(135deg, #f7efe4 0%, #f0e2d2 60%, #e9d6c0 100%);
+box-shadow:var(--shadow);
 }
 .hero-visual:after{
 content:""; position:absolute; inset:0;
 background:url('ja.jpg') center/cover no-repeat;
+mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 }
 .section h2{ font-size:28px; margin:0 0 16px; color:var(--dark); }
 .subtle{ color:var(--muted); font-size:14px; }
@@ -139,17 +117,17 @@ background:url('ja.jpg') center/cover no-repeat;
 .slot.wait{ background:#ffd9eb; }
 .slot.free{ background:#ffd8e3; }
 .slot.occupied{ background:#e6e6e6; color:#aaa; }
-.btn-book{ padding:6px 10px; border-radius:8px; border:1px solid #e6c8b3; background:#ffffff; cursor:pointer; font-weight:700; color:var(--dark); }
-.btn-book:hover{ background:#f0f0f0; }
+.btn-book{ padding:6px 10px; border-radius:8px; border:1px solid #e6c8b3; background:#333; cursor:pointer; font-weight:700; color:var(--dark); }
+.btn-book:hover{ background:#555; }
 .modal{ display:none; position:fixed; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,.5); align-items:center; justify-content:center; padding:20px; }
 .modal.active{ display:flex; }
 .modal-content{ width:min(520px, 90%); background:var(--card); border-radius:12px; padding:16px; box-shadow:0 12px 34px rgba(0,0,0,.25); }
 .input{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ddd; font-size:14px; margin-top:6px; }
 .label{ font-size:13px; color:#6b513b; margin-top:8px; }
 .inline{ display:flex; gap:12px; align-items:center; }
-.section-contact{ display:block; max-width:600px; margin:0 auto; }
+.section-contact{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
 @media (max-width: 800px){
-.section-contact{ max-width:100%; }
+.section-contact{ grid-template-columns:1fr; }
 }
 .map{ width:100%; height:210px; background:#e8d8c1; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#6b513b; font-weight:700; }
 .footer{ text-align:center; padding:20px; color:var(--muted); font-size:13px; }
@@ -158,716 +136,266 @@ background:url('ja.jpg') center/cover no-repeat;
 .brand .logo{ animation: float 4s ease-in-out infinite; }
 /* Smooth hover effects for cards */
 .card:hover{ transform: translateY(-3px); transition: transform .2s ease; }
-
-/* Calendly widget styles */
-.calendly-inline-widget {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 1px solid #555;
-}
-
-.gallery-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-  color: white;
-  padding: 32px 24px 24px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.gallery-item:hover .gallery-overlay {
-  transform: translateY(0);
-}
-
-.gallery-overlay h4 {
-  font-size: 18px;
-  margin: 0 0 8px;
-  color: white;
-}
-
-.gallery-overlay p {
-  font-size: 14px;
-  margin: 0;
-  opacity: 0.9;
-}
-
-/* Отзывы клиентов */
-.testimonials {
-  padding: 100px 0;
-  background: var(--card);
-  margin: 80px 0;
-}
-
-.testimonials-slider {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 32px;
-  margin-top: 40px;
-}
-
-.testimonial {
-  background: white;
-  padding: 32px;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  position: relative;
-  border-left: 4px solid var(--primary);
-}
-
-.testimonial::before {
-  content: '"';
-  position: absolute;
-  top: -10px;
-  left: 20px;
-  font-size: 60px;
-  color: var(--primary);
-  font-family: 'Playfair Display', serif;
-}
-
-.testimonial blockquote {
-  font-style: italic;
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0 0 20px;
-  color: var(--dark);
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.testimonial-author .avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  border: 3px solid var(--primary);
-}
-
-.testimonial-author strong {
-  color: var(--dark);
-  font-weight: 600;
-}
-
-.testimonial-author span {
-  display: block;
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-/* Улучшенные карточки услуг */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-  margin-top: 40px;
-}
-
-.booking-card {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 0;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.booking-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--hover-shadow);
-}
-
-.booking-card img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-}
-
-.booking-content {
-  padding: 24px;
-}
-
-.booking-content h3 {
-  margin: 0 0 12px;
-  color: var(--dark);
-}
-
-.price {
-  font-weight: 700;
-  font-size: 24px;
-  color: var(--primary);
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 8px;
-}
-
-.duration {
-  color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
-.book-btn {
-  width: 100%;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
-}
-
-.book-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255,181,163,0.4);
-}
-
-/* Анимации */
-@keyframes float {
-  0% { transform: translateY(0) }
-  50% { transform: translateY(-8px) }
-  100% { transform: translateY(0) }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Адаптивность - МОБИЛЬНАЯ ВЕРСИЯ */
-@media (max-width: 768px) {
-  .hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 40px;
-  }
-  
-  .hero-stats {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .nav {
-    flex-direction: column;
-    gap: 16px;
-    padding: 12px 16px;
-  }
-  
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-  
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .testimonials-slider {
-    grid-template-columns: 1fr;
-  }
-  
-  .section {
-    padding: 60px 0;
-  }
-  
-  .hero-visual {
-    height: 350px;
-  }
-  
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .about-card {
-    padding: 24px;
-  }
-  
-  .contacts-card {
-    padding: 24px;
-  }
-  
-  .schedule-card {
-    padding: 24px;
-  }
-}
-
-/* Мелкие улучшения */
-.subtle {
-  color: var(--muted);
-  font-size: 16px;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-title p {
-  font-size: 18px;
-  color: var(--muted);
-  margin-top: 16px;
-}
-
-/* Контакты */
-.contacts-info {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contacts-card {
-  background: var(--card);
-  padding: 48px;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.contacts-card p {
-  margin: 16px 0;
-  font-size: 16px;
-}
-
-.contacts-card strong {
-  color: var(--primary);
-  font-weight: 600;
-}
-
-/* О фотографе */
-.about-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.about-card {
-  background: var(--card);
-  padding: 48px;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.about-card ul {
-  margin: 16px 0;
-  padding-left: 20px;
-}
-
-.about-card li {
-  margin: 8px 0;
-  color: var(--dark);
-}
-
-/* Calendly секция */
-.schedule-card {
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--card);
-  border-radius: 20px;
-  padding: 48px;
-  box-shadow: var(--shadow);
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.calendly-placeholder {
-  background: #f0f0f0;
-  padding: 60px;
-  border-radius: 16px;
-  margin: 24px 0;
-  color: var(--muted);
-}
 </style>
 </head>
 <body>
 <header>
 <div class="nav">
-<div class="brand">
-<div class="logo">Ф</div>
+<div class="brand" aria-label="Логотип и бренд">
+<div class="logo" aria-label="Логотип">Ф</div>
 <div>Частный Фотограф Марина Алехнович</div>
 </div>
-<nav class="nav-links">
+<nav class="nav-links" aria-label="Навигация по разделам">
 <a href="#hero">Главная</a>
-<a href="#portfolio">Портфолио</a>
 <a href="#about">О фотографе</a>
-<a href="#pricing">Услуги</a>
-<a href="#testimonials">Отзывы</a>
-<a href="#schedule">Запись</a>
+<a href="#pricing">Прайс</a>
 <a href="#contacts">Контакты</a>
+<div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count">0</span></div>
+<div id="cart-dropdown" class="cart-dropdown">
+<div id="cart-items"></div>
+<div class="cart-total" id="cart-total">Итого: 0 руб</div>
+<button onclick="openBookingModal()" class="main-btn" style="width:100%; margin-top:8px;">Оформить заказ</button>
+</div>
 </nav>
-<button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 </header>
-
 <main>
-<section id="hero" class="section">
+<section id="hero" class="section" aria-label="Главный раздел">
 <div class="container hero">
-<div class="hero-content">
+<div>
 <h1>Профессиональная фотосессия под ваш стиль — вдохните жизнь в каждый кадр</h1>
-<p class="subtle">Создаю персональные портреты, репортажи и события с вниманием к деталям. Ваши эмоции — моя работа.</p>
+<p>Создаю персональные портреты, репортажи и события с вниманием к деталям. Ваши эмоции — моя работа.</p>
 
-<div class="hero-stats">
-<div class="stat">
-<span class="number">500+</span>
-<span class="label">Довольных клиентов</span>
 </div>
-<div class="stat">
-<span class="number">8</span>
-<span class="label">Лет опыта</span>
-</div>
-<div class="stat">
-<span class="number">1200+</span>
-<span class="label">Фотосессий</span>
-</div>
-</div>
-
-<div class="hero-buttons">
-<a href="#portfolio" class="cta-button primary">Посмотреть портфолио</a>
-<a href="#schedule" class="cta-button secondary">Записаться на фотосессию</a>
-</div>
-</div>
-<div class="hero-visual">
-<div class="hero-slider"></div>
-</div>
+<div class="hero-visual" aria-label="Изображение портфолио"></div>
 </div>
 </section>
-
-<section id="portfolio" class="section">
-<div class="container">
-<div class="section-title">
-<h2>Портфолио работ</h2>
-<p>Лучшие моменты, запечатленные в моих работах</p>
-</div>
-
-<div class="portfolio-gallery">
-<div class="gallery-filters">
-<button data-filter="all" class="active">Все работы</button>
-<button data-filter="portrait">Портреты</button>
-<button data-filter="wedding">Свадьбы</button>
-<button data-filter="event">Мероприятия</button>
-<button data-filter="children">Детская</button>
-<button data-filter="night">Ночная фотосессия</button>
-<button data-filter="interior">Интерьерная</button>
-</div>
-
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
-<div class="card" data-category="portrait" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="portret photo.jpg" alt="Портретная съемка" style="width:100%; height:250px; object-fit:cover;">
-<div style="padding:16px;">
-<h3>Портретная съемка</h3>
-<p style="color:var(--muted); font-size:14px;">Профессиональный портрет в студии</p>
-</div>
-</div>
-
-<div class="card" data-category="wedding" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:250px; object-fit:cover;">
-<div style="padding:16px;">
-<h3>Свадебная фотосессия</h3>
-<p style="color:var(--muted); font-size:14px;">Самый важный день вашей жизни</p>
-</div>
-</div>
-
-<div class="card" data-category="children" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:250px; object-fit:cover;">
-<div style="padding:16px;">
-<h3>Детская фотосессия</h3>
-<p style="color:var(--muted); font-size:14px;">Моменты детства - бесценны</p>
-</div>
-</div>
-
-<div class="card" data-category="event" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="reportage.jpg" alt="Репортажная съемка" style="width:100%; height:250px; object-fit:cover;">
-<div style="padding:16px;">
-<h3>Репортажная съемка</h3>
-<p style="color:var(--muted); font-size:14px;">Живые эмоции и искренние моменты</p>
-</div>
-</div>
-
-<div class="card" data-category="night" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:250px; object-fit:cover;">
-<div style="padding:16px;">
-<h3>Ночная фотосессия</h3>
-<p style="color:var(--muted); font-size:14px;">Игра света и тени</p>
-</div>
-</div>
-
-<div class="card" data-category="interior" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="interier.jpg" alt="Интерьерная съемка" style="width:100%; height:250px; object-fit:cover;">
-<div style="padding:16px;">
-<h3>Интерьерная съемка</h3>
-<p style="color:var(--muted); font-size:14px;">Красота пространства</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<section id="testimonials" class="testimonials">
-<div class="container">
-<div class="section-title">
-<h2>Отзывы клиентов</h2>
-<p>Что говорят о моей работе</p>
-</div>
-<div class="testimonials-slider">
-<div class="testimonial">
-<blockquote>Потрясающая работа! Марина смогла передать всю атмосферу нашего праздника. Каждый кадр пропитан эмоциями! Спасибо за профессионализм и творческий подход.</blockquote>
-<div class="testimonial-author">
-<div class="avatar">А+С</div>
+<section id="about" class="section" aria-label="Об фотографе">
+<div class="container section-portfolio">
+<div class="card" style="display:flex;flex-direction:column;justify-content:space-between">
 <div>
-<strong>Анна и Сергей</strong>
-<span>Свадебная фотосессия</span>
-</div>
-</div>
-</div>
-
-<div class="testimonial">
-<blockquote>Марина - настоящий профессионал! Детскую фотосессию провела так, что ребенок не заметил, как прошла съемка. Фотографии получились живыми и естественными.</blockquote>
-<div class="testimonial-author">
-<div class="avatar">МП</div>
-<div>
-<strong>Мария Петрова</strong>
-<span>Детская фотосессия</span>
-</div>
-</div>
-</div>
-
-<div class="testimonial">
-<blockquote>Лучший фотограф в городе! Работает быстро, качественно, всегда на связи. Рекомендую всем, кто ценит профессионализм и индивидуальный подход.</blockquote>
-<div class="testimonial-author">
-<div class="avatar">ДК</div>
-<div>
-<strong>Дмитрий Козлов</strong>
-<span>Корпоративная съемка</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<section id="about" class="section">
-<div class="container">
-<div class="section-title">
 <h2>О фотографе</h2>
-<p>8 лет профессиональной съемки</p>
+<p class="subtle" style="margin-top:6px">
+В профессиональном фото и видео более восьми лет.
+Имею обширный опыт как постановочных съемок, так и репортажных. Работаю в перечисленных жанрах качественно, отдаю заказ в установленные договором сроки, так как ценю свои и ваши время и деньги.
+
+На регулярной основе работаю с творческими коллективами города.
+
+Обращайтесь в любое удобное для вас время, если вам нужны:
+- яркие, красочные, незабываемые впечатления с вашего мероприятия в фото и видеоформате;
+- творческий подход к исполнению со знанием ведущих приемов киномонтажа и художественных приемов в искусстве;
+- качественное и своевременное исполнение заказа;
+- индивидуальный подход к клиенту.
+Для вас возможны:
+- фото и видеосъемка, в том числе постановочная и репортажная;
+- видео и фото-поздравления;
+</p>
+<div class="cert-grid">
+<img src="photo cert base.jpg" alt="Базовый сертификат" style="width:100%; height:auto; border-radius:8px;">
+<img src="photo cert portret.jpg" alt="Сертификат портретной фотографии" style="width:100%; height:auto; border-radius:8px;">
+<img src="photo cert pract.jpg" alt="Сертификат практической фотографии" style="width:100%; height:auto; border-radius:8px;">
+<img src="photo cert project.jpg" alt="Сертификат проектной фотографии" style="width:100%; height:auto; border-radius:8px;">
+<img src="photo cert reportage.jpg" alt="Сертификат репортажной фотографии" style="width:100%; height:auto; border-radius:8px;">
 </div>
-<div class="about-content">
-<div class="about-card">
-<h2>О фотографе</h2>
-<p>В профессиональном фото и видео более восьми лет. Имею обширный опыт как постановочных съемок, так и репортажных. Работаю в перечисленных жанрах качественно, отдаю заказ в установленные договором сроки, так как ценю свои и ваши время и деньги.</p>
-<p>На регулярной основе работаю с творческими коллективами города.</p>
-<ul>
-<li>Портретная съемка</li>
-<li>Свадебная фотография</li>
-<li>Детская фотосессия</li>
-<li>Репортажная съемка</li>
-<li>Интерьерная съемка</li>
-<li>Ночная фотография</li>
-</ul>
 </div>
+<div class="inline" style="margin-top:8px">
+<span class="badge" aria-label="Достижения" style="padding:6px 10px;border-radius:999px;background:var(--card);border:1px solid #555;color:var(--dark);font-weight:700">Достижения</span>
+<span class="small">Награды и публикации в профильных журналах</span>
 </div>
 </div>
 </section>
-
-<section id="pricing" class="section">
+<section id="pricing" class="section" aria-label="Прайс услуг">
 <div class="container">
-<div class="section-title">
-<h2>Услуги и цены</h2>
-<p>Выберите подходящий формат съемки</p>
-</div>
+<h2>Предварительный просмотр прайс-листа</h2>
+<p class="subtle" style="margin-top:0 0 12px">
+Все цены указаны за час. Вы можете комбинировать форматы и заказывать пакетные съемки.
+</p>
 <div class="card-grid">
-<div class="booking-card">
-<img src="baby.jpg" alt="Детская фотосессия">
-<div class="booking-content">
+<div class="card">
+<img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Детская фотосессия</h3>
-<div class="price">от 2500 ₽</div>
-<div class="duration">1-2 часа</div>
-<button class="book-btn">Записаться</button>
+<div class="inline">
+<p class="price">2500 руб/час</p>
+<button onclick="addToCart('Детская фотосессия', 2500)" class="btn-book">В корзину</button>
 </div>
 </div>
-
-<div class="booking-card">
-<img src="portret photo.jpg" alt="Портретная фотосессия">
-<div class="booking-content">
-<h3>Портретная фотосессия</h3>
-<div class="price">от 2500 ₽</div>
-<div class="duration">1-2 часа</div>
-<button class="book-btn">Записаться</button>
+<div class="card">
+<img src="interier.jpg" alt="Уличная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
+<h3>Уличная фотосессия</h3>
+<div class="inline">
+<p class="price">2500 руб/час</p>
+<button onclick="addToCart('Уличная фотосессия', 2500)" class="btn-book">В корзину</button>
 </div>
 </div>
-
-<div class="booking-card">
-<img src="wending.jpg" alt="Свадебная фотосессия">
-<div class="booking-content">
+<div class="card">
+<img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
 <h3>Свадебная фотосессия</h3>
-<div class="price">от 5000 ₽</div>
-<div class="duration">Весь день</div>
-<button class="book-btn">Записаться</button>
+<div class="inline">
+<p class="price">5000 руб/час</p>
+<button onclick="addToCart('Свадебная фотосессия', 5000)" class="btn-book">В корзину</button>
 </div>
 </div>
-
-<div class="booking-card">
-<img src="reportage.jpg" alt="Репортажная съемка">
-<div class="booking-content">
-<h3>Репортажная съемка</h3>
-<div class="price">от 2500 ₽</div>
-<div class="duration">2-4 часа</div>
-<button class="book-btn">Записаться</button>
+<div class="card">
+<img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
+<h3>Ночная фотосессия</h3>
+<div class="inline">
+<p class="price">2500 руб/час</p>
+<button onclick="addToCart('Ночная фотосессия', 2500)" class="btn-book">В корзину</button>
 </div>
 </div>
+<div class="card">
+<img src="portret photo.jpg" alt="Портретная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
+<h3>Портретная фотосессия</h3>
+<div class="inline">
+<p class="price">2500 руб/час</p>
+<button onclick="addToCart('Портретная фотосессия', 2500)" class="btn-book">В корзину</button>
 </div>
 </div>
-</section>
-
-<section id="schedule" class="section">
-<div class="container">
-<div class="section-title">
-<h2>Расписание и запись</h2>
-<p>Выберите удобное время для фотосессии</p>
-</div>
-<div class="schedule-card">
-<!-- Здесь будет Calendly виджет -->
-<div class="calendly-placeholder">
-<p>Интеграция с Calendly для онлайн-записи</p>
-<p>После настройки Calendly виджет появится здесь</p>
+<div class="card">
+<img src="reportage.jpg" alt="Репортажная фотосессия" style="width:100%; height:auto; border-radius:8px; margin-bottom:8px;">
+<h3>Репортажная фотосессия</h3>
+<div class="inline">
+<p class="price">2500 руб/час</p>
+<button onclick="addToCart('Репортажная фотосессия', 2500)" class="btn-book">В корзину</button>
 </div>
 </div>
 </div>
 </section>
 
-<section id="contacts" class="section">
-<div class="container">
-<div class="section-title">
-<h2>Контакты</h2>
-<p>Свяжитесь со мной любым удобным способом</p>
-</div>
-<div class="contacts-info">
-<div class="contacts-card">
-<p><strong>Телефон:</strong> +7 (920) 278-42-45</p>
-<p><strong>Email:</strong> marina-kvn2002@yandex.ru</p>
-<p><strong>График работы:</strong> пн-чт 9:00-21:00, пт-вс 12:00-23:00</p>
-<p><strong>Локация:</strong> Тульская область</p>
-</div>
-</div>
+<section id="contacts" class="section" aria-label="Контакты">
+<div class="container section-contact">
+<div class="card" aria-label="Часы работы">
+<h2>Контакты и расписание</h2>
+<p class="subtle" style="margin:6px 0 12px">
+График работы: пн-чт 9-00 - 21-00 пт-вс 12-00-23-00
+</p>
+<p class="subtle" style="margin:0 0 6px">Телефон: +79202784245</p>
+<p class="subtle" style="margin:0 0 6px">Электронная почта: marina-kvn2002@yandex.ru</p>
+<img src="tula map.jpg" alt="Карта Тульской области" style="width:100%; height:auto; border-radius:8px;">
 </div>
 </section>
 </main>
+<div id="booking-modal" class="modal">
+<div class="modal-content">
+<h3>Запись на фотосессию</h3>
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+<label class="label">ФИО</label>
+<input type="text" name="name" class="input" required>
 
+<label class="label">Номер телефона</label>
+<input type="tel" name="phone" class="input" required>
+
+<label class="label">Повод для записи</label>
+<textarea name="message" class="input" rows="4" required></textarea>
+
+<button type="submit" class="main-btn" style="margin-top:16px;">ОК</button>
+<button type="button" onclick="closeBookingModal()" style="margin-top:16px; margin-left:8px; background:#ccc;">Отмена</button>
+</form>
+</div>
+</div>
+
+<div class="footer" aria-label="Подвал страницы">
+© 2025 Частный фотограф. Все права сохранены.
+</div>
 <script>
-// Плавная прокрутка по якорям
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
-
-// Закрывать корзину при клике вне её
-document.addEventListener('click', function(e) {
-    const cartDropdown = document.getElementById('cart-dropdown');
-    const cartIcon = document.querySelector('.cart-icon');
-    
-    if (!cartIcon.contains(e.target) && !cartDropdown.contains(e.target)) {
-        cartDropdown.classList.remove('active');
-    }
-});
-
-// Функция для кнопки "Вернуться наверх"
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-// Показать/скрыть кнопку при прокрутке
-window.addEventListener('scroll', function() {
-    const backToTopButton = document.getElementById('backToTop');
-    if (window.pageYOffset > 300) {
-        backToTopButton.classList.add('show');
+// Корзина
+let cart = [];
+function addToCart(name, price) {
+    const existingItem = cart.find(cartItem => cartItem.name === name);
+    if (existingItem) {
+        existingItem.quantity += 1;
     } else {
-        backToTopButton.classList.remove('show');
+        cart.push({ name: name, price: price, quantity: 1 });
     }
-});
-
-// Фильтрация портфолио
-function filterPortfolio(category) {
-    const items = document.querySelectorAll('[data-category]');
-    const filterButtons = document.querySelectorAll('[data-filter]');
-    
-    // Обновить активную кнопку
-    filterButtons.forEach(btn => {
-        btn.style.background = 'transparent';
-        btn.style.color = 'var(--dark)';
-    });
-    
-    document.querySelector(`[data-filter="${category}"]`).style.background = 'var(--accent)';
-    document.querySelector(`[data-filter="${category}"]`).style.color = 'white';
-    
-    // Показать/скрыть элементы
-    items.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
+    updateCartDisplay();
+}
+function updateCartDisplay() {
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-count').textContent = totalQuantity;
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    if (cart.length > 0) {
+        cartItems.innerHTML = cart.map((item, index) => `
+            <div class="cart-item">
+                <span>${item.name} (${item.price} руб)</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button onclick="decreaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="increaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">+</button>
+                </div>
+            </div>
+        `).join('');
+        const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        cartTotal.textContent = 'Итого: ' + totalPrice + ' руб';
+    } else {
+        cartItems.innerHTML = '<div class="cart-item">Корзина пуста</div>';
+        cartTotal.textContent = 'Итого: 0 руб';
+    }
+}
+function increaseQuantity(index) {
+    cart[index].quantity += 1;
+    updateCartDisplay();
+}
+function decreaseQuantity(index) {
+    cart[index].quantity -= 1;
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+    updateCartDisplay();
+}
+function toggleCartDropdown() {
+    const dropdown = document.getElementById('cart-dropdown');
+    dropdown.classList.toggle('active');
+}
+function clearCart() {
+    cart = [];
+    updateCartDisplay();
 }
 
-// Добавить обработчики для кнопок фильтрации
-document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('[data-filter]');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
-            filterPortfolio(filter);
-        });
-    });
+// Простой скрипт для имитации поведения бронирования
+let activeDate = '';
+let activeTime = '';
+function openBookingModal(){
+document.getElementById('booking-modal').classList.add('active');
+}
+function closeBookingModal(){
+document.getElementById('booking-modal').classList.remove('active');
+}
+function openBooking(date, time){
+activeDate = date;
+activeTime = time;
+document.getElementById('modal-dt').textContent = 'Дата: ' + date;
+document.getElementById('modal-t').textContent = 'Время: ' + time;
+document.getElementById('date-input').value = '';
+document.getElementById('time-input').value = date + ' ' + time;
+document.getElementById('phone-input').value = '';
+document.getElementById('booking-modal').classList.add('active');
+}
+function closeBooking(){
+document.getElementById('booking-modal').classList.remove('active');
+}
+function confirmBooking(){
+const date = document.getElementById('date-input').value.trim();
+const time = document.getElementById('time-input').value.trim();
+const phone = document.getElementById('phone-input').value.trim();
+}
+function markSlotAsBooked(date, time){
+// найдем ячейку по дате и времени и поменяем класс на occupied
+const tds = document.querySelectorAll(`td.slot[data-date="${date}"][data-time="${time}"]`);
+tds.forEach(td => {
+td.classList.remove('free','wait');
+td.classList.add('occupied');
+td.innerHTML = '<span style="color:#aaa;font-weight:700">Забронировано</span>';
 });
-</script>
-</body>
-</html>
+}
+// плавная прокрутка для всех ссылок внутри шапки
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+a.addEventListener('click', function(e){
+const id = this.getAttribute('href').substring(1);
+const el = document.getElementById(id);
+if(el){
+e.preventDefault();
+el.scrollIntoView({behavior:'smooth'});
+}
+});
+});
