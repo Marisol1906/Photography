@@ -62,11 +62,30 @@ border-radius:8px; box-shadow:var(--shadow); width:300px; max-height:400px; over
 display:none; z-index:1001;
 }
 .cart-dropdown.active{ display:block; }
+.cart-header{
+display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #555;
+}
+.cart-header h4{
+margin:0; font-size:14px; font-weight:700; color:var(--dark);
+}
+.cart-close{
+background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; padding:4px;
+border-radius:4px;
+}
+.cart-close:hover{ background:#444; color:var(--dark); }
 .cart-item{
 display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #555;
 }
 .cart-item:last-child{ border-bottom:none; }
 .cart-total{ padding:8px; font-weight:700; text-align:center; border-top:1px solid #555; }
+.cart-actions{
+display:flex; gap:8px; padding:8px; border-top:1px solid #555;
+}
+.btn-cancel{
+flex:1; padding:8px 12px; border:1px solid #666; background:#444; color:var(--dark);
+border-radius:6px; cursor:pointer; font-size:13px; font-weight:600;
+}
+.btn-cancel:hover{ background:#555; }
 nav a{
 padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px;
 color:var(--dark);
@@ -155,9 +174,16 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <a href="#contacts">Контакты</a>
 <div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count hidden">0</span></div>
 <div id="cart-dropdown" class="cart-dropdown">
+<div class="cart-header">
+<h4>Корзина</h4>
+<button class="cart-close" onclick="toggleCartDropdown()">✕</button>
+</div>
 <div id="cart-items"></div>
 <div class="cart-total" id="cart-total">Итого: 0 руб</div>
-<button onclick="openBookingModal()" class="main-btn" style="width:100%; margin-top:8px;">Оформить заказ</button>
+<div class="cart-actions">
+<button onclick="clearCart()" class="btn-cancel">Отменить заказ</button>
+<button onclick="openBookingModal()" class="main-btn" style="flex:1; padding:8px 12px;">Оформить</button>
+</div>
 </div>
 </nav>
 </div>
@@ -211,7 +237,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div class="container">
 <h2>Предварительный просмотр прайс-листа</h2>
 <p class="subtle" style="margin-top:0 0 12px">
-Все цены указаны за час. Вы можете комбинировать форматы и заказывать пакетные съемки.
+Все цены указаны за час. Вы можете комбинировать форматы и заказывать пакетные съакетные съемки.
 </p>
 <div class="card-grid">
 <div class="card">
@@ -394,6 +420,7 @@ function clearCart() {
     cart = [];
     saveCart();
     updateCartDisplay();
+    toggleCartDropdown(); // Закрываем корзину после очистки
 }
 
 // Инициализация корзины при загрузке страницы
