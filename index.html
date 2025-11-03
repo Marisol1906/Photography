@@ -189,33 +189,56 @@ background:url('ja.jpg') center/cover no-repeat;
 .hero-visual{ height:260px; }
 }
 
-/* Мобильная адаптивность для портфолио */
+/* ОБЩАЯ МОБИЛЬНАЯ АДАПТИВНОСТЬ */
 @media (max-width: 600px) {
-    /* Адаптивная сетка портфолио */
-    #portfolio .container > div:nth-child(2) {
+    /* Уменьшить отступы секций */
+    .section {
+        padding: 40px 0 !important;
+    }
+    
+    .container {
+        padding: 0 12px !important;
+    }
+    
+    /* Hero секция */
+    .hero h1 {
+        font-size: clamp(24px, 6vw, 36px) !important;
+        line-height: 1.2 !important;
+    }
+    
+    .hero p {
+        font-size: 16px !important;
+    }
+    
+    .hero-visual {
+        height: 250px !important;
+        margin-top: 20px !important;
+    }
+    
+    /* Портфолио */
+    #portfolio .container > div[style*="grid-template-columns"] {
         display: grid !important;
         grid-template-columns: 1fr !important;
         gap: 16px !important;
     }
     
-    /* Кнопки фильтрации для мобильных */
-    #portfolio .container > div:first-child {
+    /* Кнопки фильтрации портфолио */
+    #portfolio .container > div[style*="display:flex"] {
         gap: 8px !important;
+        flex-wrap: wrap !important;
     }
     
-    #portfolio .container > div:first-child .btn-book {
+    #portfolio .container > div[style*="display:flex"] .btn-book {
         padding: 8px 12px !important;
-        font-size: 13px !important;
+        font-size: 12px !important;
         flex: 1 1 calc(50% - 4px) !important;
         text-align: center !important;
-        min-width: 120px !important;
+        min-width: 100px !important;
     }
     
-    /* Кнопки на всю ширину для очень маленьких экранов */
-    @media (max-width: 400px) {
-        #portfolio .container > div:first-child .btn-book {
-            flex: 1 1 100% !important;
-        }
+    /* Увеличить изображения портфолио на мобильных */
+    .portfolio-image {
+        height: 300px !important;
     }
     
     /* Заголовки в портфолио */
@@ -225,6 +248,100 @@ background:url('ja.jpg') center/cover no-repeat;
     
     #portfolio p {
         font-size: 13px !important;
+    }
+    
+    /* Отзывы */
+    #testimonials .container > div[style*="grid-template-columns"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    #testimonials blockquote {
+        font-size: 14px !important;
+        padding: 24px !important;
+    }
+    
+    #testimonials .card {
+        padding: 24px !important;
+    }
+    
+    /* Прайс */
+    .card-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .card h3 {
+        font-size: 18px !important;
+    }
+    
+    .price {
+        font-size: 20px !important;
+    }
+    
+    /* Контакты */
+    .section-contact {
+        max-width: 100% !important;
+    }
+    
+    /* Заголовки секций */
+    .section h2 {
+        font-size: 24px !important;
+    }
+    
+    /* Сертификаты */
+    .cert-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+        gap: 6px !important;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 400px) {
+    /* Еще больше уменьшить отступы */
+    .section {
+        padding: 30px 0 !important;
+    }
+    
+    .container {
+        padding: 0 8px !important;
+    }
+    
+    /* Hero */
+    .hero h1 {
+        font-size: 22px !important;
+    }
+    
+    .hero p {
+        font-size: 14px !important;
+    }
+    
+    .hero-visual {
+        height: 200px !important;
+    }
+    
+    /* Кнопки фильтрации - 1 в ряд */
+    #portfolio .container > div[style*="display:flex"] .btn-book {
+        flex: 1 1 100% !important;
+        margin-bottom: 4px !important;
+    }
+    
+    /* Изображения портфолио еще больше */
+    .portfolio-image {
+        height: 250px !important;
+    }
+    
+    /* Отзывы */
+    #testimonials blockquote {
+        font-size: 13px !important;
+        padding: 16px !important;
+    }
+    
+    /* Сертификаты */
+    .cert-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 .kbd{ font-family:monospace; padding:2px 6px; border-radius:6px; border:1px solid #ddd; background:#fff; font-size:12px; }
@@ -878,6 +995,18 @@ function toggleMobileMenu() {
     const navLinks = document.querySelector('.nav-links');
     navLinks.classList.toggle('active');
 }
+
+// Закрывать мобильное меню при клике на ссылку
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavLinks = document.querySelectorAll('.nav-links a');
+    const navLinks = document.querySelector('.nav-links');
+    
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+        });
+    });
+});
 
 // Показать/скрыть кнопку при прокрутке
 window.addEventListener('scroll', function() {
