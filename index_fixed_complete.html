@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Профессиональный фотограф — лендинг</title>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<style>
+:root{
+--cream:#f7efe4;
+--coffee:#b78457;
+--dark:#000000;
+--accent:#e89b7a;
+--pink:#f5c6e6;
+--bg:url('phone for site.jpg');
+--card:rgba(255,255,255,0.95);
+--muted:#666666;
+--ok:#4caf50;
+--shadow:0 8px 20px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;
+font-family: Arial, Helvetica, sans-serif;
+color:var(--dark);
+background:var(--bg);
+background-size: cover;
+background-position: center;
+background-attachment: scroll; /* ИСПРАВЛЕНО: fixed -> scroll для мобильных */
+}
+.section {
+    background: rgba(255,255,255,0.1);
+    /* backdrop-filter: blur(2px); УБРАНО для совместимости с мобильными */
+    margin: 20px 0;
+    padding: 72px 0;
+    border-radius: 12px;
+}
+a{color:inherit;text-decoration:none}
+
+/* ИСПРАВЛЕННЫЙ HEADER - убран backdrop-filter */
+header{
+position:sticky; top:0; z-index:1000;
+background: rgba(0,0,0,0.95); /* Увеличена непрозрачность вместо backdrop-filter */
+border-bottom:1px solid #333;
+/* backdrop-filter: saturate(1.2) blur(6px); УБРАНО */
+}
+
+.nav{
+max-width:1100px; margin:0 auto;
+display:flex; align-items:center; justify-content:space-between;
+padding:14px 16px;
+}
+
+/* ИСПРАВЛЕННОЕ МОБИЛЬНОЕ МЕНЮ */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: rgba(0,0,0,0.98); /* Увеличена непрозрачность */
+        /* backdrop-filter: none; УБРАНО */
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 50px;
+        transition: left 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    /* ИСПРАВЛЕННЫЕ ССЫЛКИ - кликабельность */
+    .nav-links a {
+        padding: 15px 20px;
+        font-size: 18px;
+        width: 80%;
+        text-align: center;
+        border-bottom: 1px solid #333;
+        user-select: none; /* Убрать выделение текста */
+        -webkit-tap-highlight-color: transparent; /* Убрать синее выделение на iOS */
+        cursor: pointer;
+        position: relative;
+        z-index: 1001;
+    }
+    
+    .cart-icon {
+        margin-top: 20px;
+        font-size: 24px;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+        z-index: 1001;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+.brand{ display:flex; align-items:center; gap:12px; font-weight:700; color:#ffffff}
+.brand .logo{
+width:34px; height:34px; border-radius:8px;
+background: linear-gradient(135deg, var(--cream), var(--coffee));
+display:grid; place-items:center; font-size:18px; color:white;
+box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+.nav-links{ display:flex; gap:14px; align-items:center; position:relative; }
+
+/* ИСПРАВЛЕННАЯ КОРЗИНА - position: fixed для мобильных */
+.cart-icon{
+position:relative; cursor:pointer; font-size:20px; padding:8px; border-radius:999px;
+color:#ffffff;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+}
+.cart-icon:active {
+    background: rgba(255,255,255,0.1);
+}
+.cart-icon:hover{ background:#f3e0ce; color:#000000; }
+
+.cart-count{
+position:absolute; top:-8px; right:-8px; background:var(--accent); color:white;
+border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center;
+font-size:12px; font-weight:700;
+}
+.cart-count.hidden {
+display: none;
+}
+
+/* КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ КОРЗИНЫ - position: fixed */
+.cart-dropdown{
+position: fixed; /* Было absolute - исправлено для мобильных */
+top: 60px;
+right: 0;
+background:var(--card); border:1px solid #555;
+border-radius:8px; box-shadow:var(--shadow); width:300px; max-height:400px; overflow-y:auto;
+display:none; z-index: 1004; /* Увеличен z-index */
+/* backdrop-filter: none; УБРАНО для совместимости */
+}
+.cart-dropdown.active{ display:block; }
+.cart-header{
+display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #555;
+}
+.cart-header h4{
+margin:0; font-size:14px; font-weight:700; color:var(--dark);
+}
+.cart-close{
+background:none; border:none; color:var(--muted); font-size:16px; cursor:pointer; padding:4px;
+border-radius:4px;
+}
+.cart-close:hover{ background:#444; color:var(--dark); }
+.cart-item{
+display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #555;
+}
+.cart-item:last-child{ border-bottom:none; }
+.cart-total{ padding:8px; font-weight:700; text-align:center; border-top:1px solid #555; }
+.cart-actions{
+display:flex; gap:8px; padding:8px; border-top:1px solid #555;
+}
+.btn-cancel{
+flex:1; padding:8px 12px; border:1px solid #666; background:#444; color:var(--dark);
+border-radius:6px; cursor:pointer; font-size:13px; font-weight:600;
+}
+.btn-cancel:hover{ background:#555; }
+
+/* ИСПРАВЛЕННЫЕ НАВИГАЦИОННЫЕ ССЫЛКИ - кликабельность */
+nav a{
+padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px;
+color:#ffffff;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+cursor: pointer;
+}
+nav a:active {
+    background: rgba(255,255,255,0.1);
+}
+nav a:hover{ background:#333; color:#ffffff; }
+
+.main-btn{
+padding:12px 20px; border-radius:999px; border:0;
+background: linear-gradient(135deg, var(--coffee), #8b5a2b);
+color:white; font-weight:700; cursor:pointer;
+box-shadow:0 6px 16px rgba(139,90,43,.4);
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+}
+
+.section{ padding:72px 0; }
+.container{ max-width:1100px; margin:0 auto; padding:0 16px; }
+
+.hero{
+display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:40px;
+}
+.hero h1{ font-size: clamp(28px, 5vw, 48px); line-height:1.04; color:var(--dark); margin:0 0 12px; }
+.hero p{ font-size:18px; color:var(--dark); margin:0 0 20px; }
+.hero-visual{
+height:320px; border-radius:18px; overflow:hidden; position:relative;
+background: #2d2d2d;
+box-shadow:var(--shadow);
+}
+.hero-visual:after{
+content:""; position:absolute; inset:0;
+background:url('ja.jpg') center/cover no-repeat;
+}
+
+.section h2{ font-size:28px; margin:0 0 16px; color:var(--dark); }
+.subtle{ color:var(--muted); font-size:14px; }
+.card-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px; }
+.cert-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap:8px; margin-top:16px; }
+
+/* ИСПРАВЛЕННЫЕ КАРТОЧКИ - кликабельность */
+.card{ 
+    background:var(--card); 
+    border-radius:14px; 
+    padding:16px; 
+    box-shadow: var(--shadow); 
+    border:1px solid #555;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.card:active {
+    background: rgba(255,255,255,0.9);
+}
+
+.price{ font-weight:700; font-size:22px; color:var(--dark); }
+.section-portfolio{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:stretch; }
+
+@media (max-width: 900px){
+.hero{ grid-template-columns:1fr; text-align:left; }
+.section-portfolio{ grid-template-columns:1fr; }
+.hero-visual{ height:260px; }
+}
+
+/* РАСШИРЕННАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ */
+@media (max-width: 600px) {
+    .section {
+        padding: 40px 0 !important;
+    }
+    
+    .container {
+        padding: 0 12px !important;
+    }
+    
+    .hero h1 {
+        font-size: clamp(24px, 6vw, 36px) !important;
+        line-height: 1.2 !important;
+    }
+    
+    .hero p {
+        font-size: 16px !important;
+    }
+    
+    .hero-visual {
+        height: 250px !important;
+        margin-top: 20px !important;
+    }
+    
+    /* Портфолио */
+    #portfolio .container > div[style*="grid-template-columns"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    /* Кнопки фильтрации портфолио - кликабельность */
+    #portfolio .container > div[style*="display:flex"] {
+        gap: 8px !important;
+        flex-wrap: wrap !important;
+    }
+    
+    #portfolio .container > div[style*="display:flex"] .btn-book {
+        padding: 8px 12px !important;
+        font-size: 12px !important;
+        flex: 1 1 calc(50% - 4px) !important;
+        text-align: center !important;
+        min-width: 100px !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        cursor: pointer !important;
+    }
+    
+    /* Изображения портфолио - кликабельность */
+    .portfolio-image {
+        height: 300px !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    #portfolio h3 {
+        font-size: 16px !important;
+    }
+    
+    #portfolio p {
+        font-size: 13px !important;
+    }
+    
+    /* Отзывы */
+    #testimonials .container > div[style*="grid-template-columns"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    #testimonials blockquote {
+        font-size: 14px !important;
+        padding: 24px !important;
+    }
+    
+    #testimonials .card {
+        padding: 24px !important;
+    }
+    
+    /* Прайс */
+    .card-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .card h3 {
+        font-size: 18px !important;
+    }
+    
+    .price {
+        font-size: 20px !important;
+    }
+    
+    .section-contact {
+        max-width: 100% !important;
+    }
+    
+    .section h2 {
+        font-size: 24px !important;
+    }
+    
+    .cert-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+        gap: 6px !important;
+    }
+    
+    /* КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Корзина на мобильных */
+    .cart-dropdown {
+        position: fixed !important;
+        top: 60px !important;
+        right: 0 !important;
+        left: 0 !important;
+        width: calc(100vw - 20px) !important;
+        max-width: none !important;
+        margin: 10px !important;
+        z-index: 1004 !important;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 400px) {
+    .section {
+        padding: 30px 0 !important;
+    }
+    
+    .container {
+        padding: 0 8px !important;
+    }
+    
+    .hero h1 {
+        font-size: 22px !important;
+    }
+    
+    .hero p {
+        font-size: 14px !important;
+    }
+    
+    .hero-visual {
+        height: 200px !important;
+    }
+    
+    /* Кнопки фильтрации - 1 в ряд */
+    #portfolio .container > div[style*="display:flex"] .btn-book {
+        flex: 1 1 100% !important;
+        margin-bottom: 4px !important;
+    }
+    
+    /* Изображения портфолио еще больше */
+    .portfolio-image {
+        height: 250px !important;
+    }
+    
+    /* Отзывы */
+    #testimonials blockquote {
+        font-size: 13px !important;
+        padding: 16px !important;
+    }
+    
+    /* Сертификаты */
+    .cert-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* Еще больше исправления для корзины */
+    .cart-dropdown {
+        position: fixed !important;
+        top: 60px !important;
+        left: 5px !important;
+        right: 5px !important;
+        width: calc(100vw - 10px) !important;
+        max-width: none !important;
+        z-index: 1004 !important;
+    }
+}
+
+/* Дополнительные стили */
+.kbd{ font-family:monospace; padding:2px 6px; border-radius:6px; border:1px solid #ddd; background:#fff; font-size:12px; }
+.pricing-table{ width:100%; border-collapse:collapse; margin-top:8px; }
+.pricing-table th, .pricing-table td{ padding:12px; border-bottom:1px solid #f0e2d9; text-align:left; }
+.pricing-table th{ width:40%; color:#6b513b; font-weight:700; }
+.small{ font-size:12px; color:var(--muted); }
+.calendar{ overflow:auto; border-radius:12px; border:1px solid #f0e2d9; background:#fff; padding:12px; }
+.calendar table{ width:100%; border-collapse:collapse; }
+.calendar th, .calendar td{ text-align:center; padding:8px; border:1px solid #f2e1d1; min-width:54px; }
+.calendar th{ background:#f7efe4; color:#6b513b; font-weight:700; }
+.slot{ position:relative; min-height:46px; }
+.slot.wait{ background:#ffd9eb; }
+.slot.free{ background:#ffd8e3; }
+.slot.occupied{ background:#e6e6e6; color:#aaa; }
+
+/* ИСПРАВЛЕННЫЕ КНОПКИ - кликабельность */
+.btn-book{ 
+    padding:6px 10px; 
+    border-radius:8px; 
+    border:1px solid #e6c8b3; 
+    background:#ffffff; 
+    cursor:pointer; 
+    font-weight:700; 
+    color:var(--dark);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn-book:active {
+    background: rgba(255,255,255,0.9);
+}
+.btn-book:hover{ background:#f0f0f0; }
+
+.modal{ display:none; position:fixed; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,.5); align-items:center; justify-content:center; padding:20px; }
+.modal.active{ display:flex; }
+.modal-content{ width:min(520px, 90%); background:var(--card); border-radius:12px; padding:16px; box-shadow:0 12px 34px rgba(0,0,0,.25); }
+.input{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ddd; font-size:14px; margin-top:6px; }
+.label{ font-size:13px; color:#6b513b; margin-top:8px; }
+.inline{ display:flex; gap:12px; align-items:center; }
+.section-contact{ display:block; max-width:600px; margin:0 auto; }
+@media (max-width: 800px){
+.section-contact{ max-width:100%; }
+}
+.map{ width:100%; height:210px; background:#e8d8c1; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#6b513b; font-weight:700; }
+.footer{ text-align:center; padding:20px; color:var(--muted); font-size:13px; }
+.aside{ display:flex; flex-direction:column; gap:12px; }
+@keyframes float{ 0%{ transform: translateY(0)} 50%{ transform: translateY(-6px)} 100%{ transform: translateY(0)}}
+.brand .logo{ animation: float 4s ease-in-out infinite; }
+
+/* Smooth hover effects for cards */
+.card:hover{ transform: translateY(-3px); transition: transform .2s ease; }
+
+/* Calendly widget styles */
+.calendly-inline-widget {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid #555;
+}
+
+.schedule-widget-container {
+    position: relative;
+}
+
+.reset-widget-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    background: #555;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    z-index: 10;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.reset-widget-btn:hover {
+    background: #666;
+    border-color: #999;
+    transform: translateY(-1px);
+}
+
+.reset-widget-btn:active {
+    background: #777;
+}
+
+.schedule-section {
+    margin-top: 72px;
+}
+
+/* Кнопка "Вернуться наверх" */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.back-to-top:hover {
+    background: #d4856a;
+    transform: translateY(-2px);
+}
+
+.back-to-top:active {
+    background: #c07a5e;
+    transform: translateY(0);
+}
+
+.back-to-top.show {
+    display: flex;
+}
+
+.back-to-top span {
+    user-select: none;
+}
+</style>
+</head>
+<body>
+<header>
+<div class="nav">
+<div class="brand" aria-label="Логотип и бренд">
+<div class="logo" aria-label="Логотип">Ф</div>
+<div>Частный Фотограф Марина Алехнович</div>
+</div>
+<nav class="nav-links" aria-label="Навигация по разделам">
+<a href="#hero">Главная</a>
+<a href="#about">О фотографе</a>
+<a href="#pricing">Прайс</a>
+<a href="#schedule">Расписание</a>
+<a href="#contacts">Контакты</a>
+<div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count hidden">0</span></div>
+<div id="cart-dropdown" class="cart-dropdown">
+<div class="cart-header">
+<h4>Корзина</h4>
+<button class="cart-close" onclick="toggleCartDropdown()">✕</button>
+</div>
+<div id="cart-items"></div>
+<div class="cart-total" id="cart-total">Итого: 0 руб</div>
+<div class="cart-actions">
+<button onclick="clearCart()" class="btn-cancel">Отменить заказ</button>
+<button onclick="openBookingModal()" class="main-btn" style="flex:1; padding:8px 12px;">Оформить</button>
+</div>
+</div>
+</nav>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+</div>
+</header>
+<main>
+<section id="hero" class="section" aria-label="Главный раздел">
+<div class="container hero">
+<div>
+<h1>Профессиональная фотосессия под ваш стиль — вдохните жизнь в каждый кадр</h1>
+<p>Создаю персональные портреты, репортажи и события с вниманием к деталям. Ваши эмоции — моя работа.</p>
+</div>
+<div class="hero-visual" aria-label="Изображение портфолио"></div>
+</div>
+</section>
+
+<!-- НОВЫЙ РАЗДЕЛ: ПОРТФОЛИО -->
+<section id="portfolio" class="section" aria-label="Портфолио работ">
+<div class="container">
+<h2>Портфолио работ</h2>
+<p style="margin-bottom: 16px; color: var(--dark);">Лучшие моменты, запечатленные в моих работах</p>
+
+<div style="display:flex; gap:12px; justify-content:center; margin-bottom:40px; flex-wrap:wrap;">
+<button data-filter="all" class="btn-book" style="background:var(--accent); color:white; border:none;">Все работы</button>
+<button data-filter="portrait" class="btn-book">Портреты</button>
+<button data-filter="wedding" class="btn-book">Свадьбы</button>
+<button data-filter="event" class="btn-book">Мероприятия</button>
+<button data-filter="children" class="btn-book">Детская</button>
+<button data-filter="night" class="btn-book">Ночная фотосессия</button>
+<button data-filter="interior" class="btn-book">Интерьерная</button>
+</div>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+<div class="card" data-category="portrait" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
+<img src="portret photo.jpg" alt="Портретная съемка" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
+<div style="padding:16px;">
+<h3>Портретная съемка</h3>
+<p style="color:var(--
