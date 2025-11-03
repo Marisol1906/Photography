@@ -1,8 +1,11 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Профессиональный фотограф — лендинг</title>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
 :root{
 --cream:#f7efe4;
@@ -158,6 +161,44 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 .brand .logo{ animation: float 4s ease-in-out infinite; }
 /* Smooth hover effects for cards */
 .card:hover{ transform: translateY(-3px); transition: transform .2s ease; }
+
+/* Calendly widget styles */
+.calendly-inline-widget {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid #555;
+}
+
+.schedule-widget-container {
+    position: relative;
+}
+
+.reset-widget-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    background: #555;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.reset-widget-btn:hover {
+    background: #666;
+    border-color: #999;
+    transform: translateY(-1px);
+}
+
+.schedule-section {
+    margin-top: 72px;
+}
 </style>
 </head>
 <body>
@@ -171,6 +212,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <a href="#hero">Главная</a>
 <a href="#about">О фотографе</a>
 <a href="#pricing">Прайс</a>
+<a href="#schedule">Расписание</a>
 <a href="#contacts">Контакты</a>
 <div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-count hidden">0</span></div>
 <div id="cart-dropdown" class="cart-dropdown">
@@ -194,7 +236,6 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div>
 <h1>Профессиональная фотосессия под ваш стиль — вдохните жизнь в каждый кадр</h1>
 <p>Создаю персональные портреты, репортажи и события с вниманием к деталям. Ваши эмоции — моя работа.</p>
-
 </div>
 <div class="hero-visual" aria-label="Изображение портфолио"></div>
 </div>
@@ -237,7 +278,7 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 <div class="container">
 <h2>Предварительный просмотр прайс-листа</h2>
 <p class="subtle" style="margin-top:0 0 12px">
-Все цены указаны за час. Вы можете комбинировать форматы и заказывать пакетные съакетные съемки.
+Все цены указаны за час. Вы можете комбинировать форматы и заказывать пакетные съемки.
 </p>
 <div class="card-grid">
 <div class="card">
@@ -291,6 +332,23 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 </div>
 </section>
 
+<!-- Новый раздел с Calendly виджетом -->
+<section id="schedule" class="section schedule-section" aria-label="Расписание и запись">
+<div class="container">
+<h2>Расписание и запись на фотосессию</h2>
+<p class="subtle" style="margin-bottom: 16px;">Выберите удобное для вас время для проведения фотосессии</p>
+
+<div class="schedule-widget-container">
+<!-- Inline Calendly widget -->
+<div class="calendly-inline-widget" 
+     data-url="https://calendly.com/marisolalekhno" 
+     style="min-width:320px;height:580px;">
+</div>
+<button class="reset-widget-btn" onclick="resetCalendlyWidget()">Сбросить виджет</button>
+</div>
+</div>
+</section>
+
 <section id="contacts" class="section" aria-label="Контакты">
 <div class="container section-contact">
 <div class="card" aria-label="Часы работы">
@@ -300,181 +358,258 @@ mix-blend-mode: multiply; opacity:.55; filter: contrast(1.2);
 </p>
 <p class="subtle" style="margin:0 0 6px">Телефон: +79202784245</p>
 <p class="subtle" style="margin:0 0 6px">Электронная почта: marina-kvn2002@yandex.ru</p>
-<img src="tula map.jpg" alt="Карта Тульской области" style="width:100%; height:auto; border-radius:8px;">
+<img src="tula map.jpg" alt="Карта Тульской области" style="width:100%; height:auto; border-radius:8px; margin-top: 12px;">
+</div>
+<div class="aside">
+<div class="card">
+<h3>Связаться со мной</h3>
+<p class="subtle">Готова обсудить ваш проект в любое удобное время</p>
+<div style="margin-top: 16px;">
+<a href="tel:+79202784245" class="main-btn" style="display:inline-block; margin-right: 8px;">Позвонить</a>
+<a href="mailto:marina-kvn2002@yandex.ru" class="btn-book">Написать</a>
+</div>
+</div>
+</div>
 </div>
 </section>
 </main>
+<footer class="footer">
+<p>&copy; 2025 Марина Алехнович. Все права защищены.</p>
+</footer>
+
+<!-- Модальное окно для оформления заказа -->
 <div id="booking-modal" class="modal">
 <div class="modal-content">
-<h3>Запись на фотосессию</h3>
-<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-<label class="label">ФИО</label>
-<input type="text" name="name" class="input" required>
-
-<label class="label">Номер телефона</label>
-<input type="tel" name="phone" class="input" required>
-
-<label class="label">Повод для записи</label>
-<textarea name="message" class="input" rows="4" required></textarea>
-
-<button type="submit" class="main-btn" style="margin-top:16px;">ОК</button>
-<button type="button" onclick="closeBookingModal()" style="margin-top:16px; margin-left:8px; background:#ccc;">Отмена</button>
-</form>
+<h3>Оформление заказа</h3>
+<div class="label">Имя</div>
+<input type="text" class="input" id="customer-name" placeholder="Ваше имя">
+<div class="label">Телефон</div>
+<input type="tel" class="input" id="customer-phone" placeholder="+7 (999) 123-45-67">
+<div class="label">Комментарий</div>
+<textarea class="input" id="customer-comment" rows="3" placeholder="Дополнительные пожелания"></textarea>
+<div style="display:flex; gap:8px; margin-top:16px;">
+<button onclick="closeBookingModal()" class="btn-cancel">Отмена</button>
+<button onclick="submitOrder()" class="main-btn" style="flex:1;">Отправить</button>
+</div>
 </div>
 </div>
 
-<div class="footer" aria-label="Подвал страницы">
-© 2025 Частный фотограф. Все права сохранены.
-</div>
 <script>
-// Корзина с улучшенной функциональностью
+// JavaScript для работы с корзиной и Calendly виджетом
+
+// Корзина
 let cart = [];
+let cartTotal = 0;
 
-// Сохранение корзины в localStorage
-function saveCart() {
-    localStorage.setItem('photography_cart', JSON.stringify(cart));
-}
-
-// Загрузка корзины из localStorage
-function loadCart() {
-    const savedCart = localStorage.getItem('photography_cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (count > 0) {
+        cartCount.textContent = count;
+        cartCount.classList.remove('hidden');
+    } else {
+        cartCount.classList.add('hidden');
     }
 }
 
-// Добавление товара в корзину
-function addToCart(name, price) {
-    const existingItem = cart.find(cartItem => cartItem.name === name);
+function addToCart(service, price) {
+    const existingItem = cart.find(item => item.service === service);
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ name: name, price: price, quantity: 1 });
+        cart.push({ service, price, quantity: 1 });
     }
-    saveCart(); // Сохраняем корзину
+    cartTotal += price;
     updateCartDisplay();
+    updateCartCount();
+    
+    // Показать уведомление
+    showNotification(`Добавлено: ${service}`);
 }
 
-// Обновление отображения корзины
-function updateCartDisplay() {
-    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const cartCountElement = document.getElementById('cart-count');
-    
-    // Обновляем счетчик корзины
-    cartCountElement.textContent = totalQuantity;
-    
-    // Показываем/скрываем счетчик в зависимости от наличия товаров
-    if (totalQuantity > 0) {
-        cartCountElement.classList.remove('hidden');
-    } else {
-        cartCountElement.classList.add('hidden');
+function removeFromCart(service) {
+    const itemIndex = cart.findIndex(item => item.service === service);
+    if (itemIndex !== -1) {
+        cartTotal -= cart[itemIndex].price * cart[itemIndex].quantity;
+        cart.splice(itemIndex, 1);
+        updateCartDisplay();
+        updateCartCount();
     }
-    
+}
+
+function updateCartDisplay() {
     const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
+    const cartTotalElement = document.getElementById('cart-total');
     
-    if (cart.length > 0) {
-        cartItems.innerHTML = cart.map((item, index) => `
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align:center; color:var(--muted); padding:20px;">Корзина пуста</p>';
+    } else {
+        cartItems.innerHTML = cart.map(item => `
             <div class="cart-item">
-                <span>${item.name} (${item.price} руб)</span>
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <button onclick="decreaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">-</button>
-                    <span>${item.quantity}</span>
-                    <button onclick="increaseQuantity(${index})" style="width:24px; height:24px; border:1px solid #e6c8b3; background:#fff; border-radius:4px; cursor:pointer;">+</button>
-                </div>
+                <span>${item.service} (${item.quantity} шт.)</span>
+                <span>${item.price * item.quantity} руб</span>
             </div>
         `).join('');
-        const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        cartTotal.textContent = 'Итого: ' + totalPrice + ' руб';
-    } else {
-        cartItems.innerHTML = '<div class="cart-item">Корзина пуста</div>';
-        cartTotal.textContent = 'Итого: 0 руб';
     }
+    
+    cartTotalElement.textContent = `Итого: ${cartTotal} руб`;
 }
 
-// Увеличение количества товара
-function increaseQuantity(index) {
-    cart[index].quantity += 1;
-    saveCart();
+function clearCart() {
+    cart = [];
+    cartTotal = 0;
     updateCartDisplay();
+    updateCartCount();
+    toggleCartDropdown();
 }
 
-// Уменьшение количества товара
-function decreaseQuantity(index) {
-    cart[index].quantity -= 1;
-    if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-    }
-    saveCart();
-    updateCartDisplay();
-}
-
-// Переключение видимости выпадающего меню корзины
 function toggleCartDropdown() {
     const dropdown = document.getElementById('cart-dropdown');
     dropdown.classList.toggle('active');
 }
 
-// Очистка корзины
-function clearCart() {
-    cart = [];
-    saveCart();
-    updateCartDisplay();
-    toggleCartDropdown(); // Закрываем корзину после очистки
+function openBookingModal() {
+    if (cart.length === 0) {
+        showNotification('Добавьте услуги в корзину');
+        return;
+    }
+    document.getElementById('booking-modal').classList.add('active');
 }
 
-// Инициализация корзины при загрузке страницы
+function closeBookingModal() {
+    document.getElementById('booking-modal').classList.remove('active');
+}
+
+function submitOrder() {
+    const name = document.getElementById('customer-name').value;
+    const phone = document.getElementById('customer-phone').value;
+    const comment = document.getElementById('customer-comment').value;
+    
+    if (!name || !phone) {
+        showNotification('Заполните обязательные поля');
+        return;
+    }
+    
+    // Здесь можно добавить логику отправки заказа
+    const orderDetails = {
+        name,
+        phone,
+        comment,
+        items: cart,
+        total: cartTotal
+    };
+    
+    console.log('Заказ:', orderDetails);
+    showNotification('Заказ отправлен! Мы свяжемся с вами в ближайшее время.');
+    
+    // Очистить корзину и закрыть модальное окно
+    clearCart();
+    closeBookingModal();
+    
+    // Очистить форму
+    document.getElementById('customer-name').value = '';
+    document.getElementById('customer-phone').value = '';
+    document.getElementById('customer-comment').value = '';
+}
+
+// Calendly виджет
+function resetCalendlyWidget() {
+    const widgetContainer = document.querySelector('.schedule-widget-container');
+    const currentWidget = widgetContainer.querySelector('.calendly-inline-widget');
+    
+    // Удалить текущий виджет
+    if (currentWidget) {
+        currentWidget.remove();
+    }
+    
+    // Создать новый виджет
+    const newWidget = document.createElement('div');
+    newWidget.className = 'calendly-inline-widget';
+    newWidget.setAttribute('data-url', 'https://calendly.com/marisolalekhno');
+    newWidget.style.minWidth = '320px';
+    newWidget.style.height = '580px';
+    
+    // Добавить новый виджет в контейнер
+    widgetContainer.insertBefore(newWidget, widgetContainer.querySelector('.reset-widget-btn'));
+    
+    // Переинициализировать Calendly
+    if (typeof Calendly !== 'undefined') {
+        Calendly.initInlineWidget({
+            url: 'https://calendly.com/marisolalekhno',
+            parentElement: newWidget
+        });
+    }
+    
+    showNotification('Виджет сброшен');
+}
+
+// Уведомления
+function showNotification(message) {
+    // Создать элемент уведомления
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--card);
+        color: var(--dark);
+        padding: 12px 20px;
+        border-radius: 8px;
+        border: 1px solid #555;
+        box-shadow: var(--shadow);
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Показать уведомление
+    setTimeout(() => {
+        notification.style.opacity = '1';
+    }, 100);
+    
+    // Скрыть уведомление через 3 секунды
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    loadCart();
+    // Инициализировать корзину
     updateCartDisplay();
+    updateCartCount();
+    
+    // Инициализировать Calendly виджет
+    if (typeof Calendly !== 'undefined') {
+        Calendly.initInlineWidget({
+            url: 'https://calendly.com/marisolalekhno',
+            parentElement: document.querySelector('.calendly-inline-widget')
+        });
+    }
+    
+    // Закрывать модальные окна при клике вне их
+    document.addEventListener('click', function(e) {
+        const bookingModal = document.getElementById('booking-modal');
+        if (e.target === bookingModal) {
+            closeBookingModal();
+        }
+    });
 });
 
-// Простой скрипт для имитации поведения бронирования
-let activeDate = '';
-let activeTime = '';
-function openBookingModal(){
-document.getElementById('booking-modal').classList.add('active');
-}
-function closeBookingModal(){
-document.getElementById('booking-modal').classList.remove('active');
-}
-function openBooking(date, time){
-activeDate = date;
-activeTime = time;
-document.getElementById('modal-dt').textContent = 'Дата: ' + date;
-document.getElementById('modal-t').textContent = 'Время: ' + time;
-document.getElementById('date-input').value = '';
-document.getElementById('time-input').value = date + ' ' + time;
-document.getElementById('phone-input').value = '';
-document.getElementById('booking-modal').classList.add('active');
-}
-function closeBooking(){
-document.getElementById('booking-modal').classList.remove('active');
-}
-function confirmBooking(){
-const date = document.getElementById('date-input').value.trim();
-const time = document.getElementById('time-input').value.trim();
-const phone = document.getElementById('phone-input').value.trim();
-}
-function markSlotAsBooked(date, time){
-// найдем ячейку по дате и времени и поменяем класс на occupied
-const tds = document.querySelectorAll(`td.slot[data-date="${date}"][data-time="${time}"]`);
-tds.forEach(td => {
-td.classList.remove('free','wait');
-td.classList.add('occupied');
-td.innerHTML = '<span style="color:#aaa;font-weight:700">Забронировано</span>';
-});
-}
-// плавная прокрутка для всех ссылок внутри шапки
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-a.addEventListener('click', function(e){
-const id = this.getAttribute('href').substring(1);
-const el = document.getElementById(id);
-if(el){
-e.preventDefault();
-el.scrollIntoView({behavior:'smooth'});
-}
-});
+// Закрывать корзину при клике вне её
+document.addEventListener('click', function(e) {
+    const cartDropdown = document.getElementById('cart-dropdown');
+    const cartIcon = document.querySelector('.cart-icon');
+    
+    if (!cartIcon.contains(e.target) && !cartDropdown.contains(e.target)) {
+        cartDropdown.classList.remove('active');
+    }
 });
 </script>
 </body>
