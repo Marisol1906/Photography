@@ -49,6 +49,55 @@ max-width:1100px; margin:0 auto;
 display:flex; align-items:center; justify-content:space-between;
 padding:14px 16px;
 }
+
+/* Мобильное меню */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: rgba(0,0,0,0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 50px;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links a {
+        padding: 15px 20px;
+        font-size: 18px;
+        width: 80%;
+        text-align: center;
+        border-bottom: 1px solid #333;
+    }
+    
+    .cart-icon {
+        margin-top: 20px;
+        font-size: 24px;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+    }
+}
+
+.mobile-menu-btn {
+    display: none;
+}
 .brand{ display:flex; align-items:center; gap:12px; font-weight:700; color:#ffffff}
 .brand .logo{
 width:34px; height:34px; border-radius:8px;
@@ -312,6 +361,7 @@ background:url('ja.jpg') center/cover no-repeat;
 </div>
 </div>
 </nav>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 </div>
 </header>
 <main>
@@ -343,7 +393,7 @@ background:url('ja.jpg') center/cover no-repeat;
 
 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
 <div class="card" data-category="portrait" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="portret photo.jpg" alt="Портретная съемка" style="width:100%; height:320px; object-fit:cover;">
+<img src="portret photo.jpg" alt="Портретная съемка" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
 <div style="padding:16px;">
 <h3>Портретная съемка</h3>
 <p style="color:var(--muted); font-size:14px;">Профессиональный портрет в студии</p>
@@ -351,7 +401,7 @@ background:url('ja.jpg') center/cover no-repeat;
 </div>
 
 <div class="card" data-category="wedding" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="wending.jpg" alt="Свадебная фотосессия" style="width:100%; height:320px; object-fit:cover;">
+<img src="wending.jpg" alt="Свадебная фотосессия" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
 <div style="padding:16px;">
 <h3>Свадебная фотосессия</h3>
 <p style="color:var(--muted); font-size:14px;">Самый важный день вашей жизни</p>
@@ -359,7 +409,7 @@ background:url('ja.jpg') center/cover no-repeat;
 </div>
 
 <div class="card" data-category="children" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="baby.jpg" alt="Детская фотосессия" style="width:100%; height:320px; object-fit:cover;">
+<img src="baby.jpg" alt="Детская фотосессия" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
 <div style="padding:16px;">
 <h3>Детская фотосессия</h3>
 <p style="color:var(--muted); font-size:14px;">Моменты детства - бесценны</p>
@@ -367,7 +417,7 @@ background:url('ja.jpg') center/cover no-repeat;
 </div>
 
 <div class="card" data-category="event" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="reportage.jpg" alt="Репортажная съемка" style="width:100%; height:320px; object-fit:cover;">
+<img src="reportage.jpg" alt="Репортажная съемка" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
 <div style="padding:16px;">
 <h3>Репортажная съемка</h3>
 <p style="color:var(--muted); font-size:14px;">Живые эмоции и искренние моменты</p>
@@ -375,7 +425,7 @@ background:url('ja.jpg') center/cover no-repeat;
 </div>
 
 <div class="card" data-category="night" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="night.jpg" alt="Ночная фотосессия" style="width:100%; height:320px; object-fit:cover;">
+<img src="night.jpg" alt="Ночная фотосессия" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
 <div style="padding:16px;">
 <h3>Ночная фотосессия</h3>
 <p style="color:var(--muted); font-size:14px;">Игра света и тени</p>
@@ -383,7 +433,7 @@ background:url('ja.jpg') center/cover no-repeat;
 </div>
 
 <div class="card" data-category="interior" style="cursor:pointer; transition: transform .3s ease; padding:0; overflow:hidden;">
-<img src="interier.jpg" alt="Интерьерная съемка" style="width:100%; height:320px; object-fit:cover;">
+<img src="interier.jpg" alt="Интерьерная съемка" class="portfolio-image" style="width:100%; height:400px; object-fit:cover; transition: all 0.3s ease;">
 <div style="padding:16px;">
 <h3>Интерьерная съемка</h3>
 <p style="color:var(--muted); font-size:14px;">Красота пространства</p>
@@ -823,6 +873,12 @@ function scrollToTop() {
     });
 }
 
+// Функция для мобильного меню
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+}
+
 // Показать/скрыть кнопку при прокрутке
 window.addEventListener('scroll', function() {
     const backToTopButton = document.getElementById('backToTop');
@@ -833,7 +889,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Фильтрация портфолио
+// Фильтрация портфолио с анимацией
 function filterPortfolio(category) {
     const items = document.querySelectorAll('[data-category]');
     const filterButtons = document.querySelectorAll('[data-filter]');
@@ -847,12 +903,34 @@ function filterPortfolio(category) {
     document.querySelector(`[data-filter="${category}"]`).style.background = 'var(--accent)';
     document.querySelector(`[data-filter="${category}"]`).style.color = 'white';
     
-    // Показать/скрыть элементы
+    // Показать/скрыть элементы с анимацией
     items.forEach(item => {
+        const image = item.querySelector('.portfolio-image');
+        
         if (category === 'all' || item.dataset.category === category) {
             item.style.display = 'block';
+            // Анимация появления с увеличением
+            image.style.transform = 'scale(0.9)';
+            image.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                image.style.transform = 'scale(1.1)';
+                image.style.opacity = '1';
+            }, 50);
+            
+            setTimeout(() => {
+                image.style.transform = 'scale(1)';
+            }, 350);
         } else {
-            item.style.display = 'none';
+            // Анимация скрытия
+            image.style.transform = 'scale(0.9)';
+            image.style.opacity = '0.3';
+            
+            setTimeout(() => {
+                item.style.display = 'none';
+                image.style.transform = 'scale(1)';
+                image.style.opacity = '1';
+            }, 300);
         }
     });
 }
